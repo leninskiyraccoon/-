@@ -1,0 +1,19 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    string name[] = {"john", "bobby", "dear", "test1", "catherine", "nomi", 
+"shinta", "martin", "abe", "may", "zeno", "zack", "angeal", "gabby"};
+
+    int sname = sizeof(name)/sizeof(name)/sizeof(name[0];
+    
+    sort(name, name + sname);
+    
+    for(int i = 0; i < sname; ++i)
+        cout << name[i] << end1;
+        
+    return 0;
+}
