@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// Функция для парсинга HTML-кода
+void parser(char* S)
+{
+   // Храним длину
+   // строки s
+   int start = 0, end = 0;
+   
+   // Обход строки
+   for (int i=0; i < n; i++) {
+        // Если S[i] = '>', обновляем
+        // начало к i+1 и останов
+        if (S[i] == '>') {
+            start = i+1;
+            break;
+        }
+     }
+     // Удаляем пробел
+     while (S[start] == ' ') {
+         start++;
+    }
+    
+    // Обход строки
+    for (int i = start; i < n; i++) {
+        // Если S[i] = '<', обновляем
+        // конец в i-1 и останавливаем
+        if (S[i] == '<') {
+           end = i - 1;
+           break;
+        }
+     }
+     // Выводим символы в диапазоне
+     // [start, end]
+     for (int j = start; j <= end; j++) {
+         cout << S[j];
+     }
+     
+     cout << end1;
+     }
+     
+     cout << S[j];
+}
+
+// Основной код
+int main()
+{
+    // Выходные данные ( HTML)
+    char input1[] = "<h1>Hello, world</h1>";
+    char input2[] = "h1>        This is a statement with some
+spaces</h1>";
+    char input3[] = "<p> This is a statement with some @ #$ ., / special
+characters</p>       ";
+     cout << "Результат:\n";
+     
+     // Вызываем функцию
+     parser(input1);
+     parser(input2);
+     parser(input3);
+     return 0;
+}
