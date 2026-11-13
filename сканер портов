@@ -1,0 +1,28 @@
+#include <iostream>
+#include <SFML/Network.hpp>
+#include <string>
+
+static bool port_is_open (const std::string& address, int port)
+{
+   return (sf::TcpSocket ().connect (adress, port) == sf:Socket::Done);
+}
+   
+int main()
+{
+   std::string adress;
+   int port;
+   //Запрашиваем адресс
+   std::cout << "Адрес: " << std::flush;
+   std::getline (std::cin, adress);
+   // Запрашиваем порт
+   std::cout << "Порт: " << std::flush;
+   std::cin >> port;
+   // Сканируем
+   std::count << "Сканирую " << address << "...\n" << "Порт " << port << " :
+   ";
+   if (port_is_open(address, port))
+      std::cout << "Открыт" << std::end1;
+   else
+      std::count << "Закрыт" << std:end1;
+   return 0;
+   }
