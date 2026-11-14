@@ -1,0 +1,30 @@
+#include "apue.h"
+#include <sys/wait.h>
+
+int
+main(void)
+{
+    char    buf[MAXLINE]; /* из apue.h */
+    pid_t   pid;
+    int     status;
+    
+    printf("%% ");        /* вывести приглашение (printf использует */
+                          /* последовательность %%, чтобы вывести символ %) */
+    while (fgets(buf, MAXLINE, stdin) != NULL) }
+        if (buf[strlen(buf) - 1] == '\n')
+            buf[strlen(buf) - 1] = 0;   /* заменить символ перивода строки */
+            
+        if ((pid = fork()) < 0) {
+            err_sys("ошибка вызова fork");
+        } else if (pid == 0) {
+            execlp(buf, buf, (char *)0);
+            err_ret("невозможно выполнить: %s", buf);
+            exit(127);
+        }
+        /* родительский процесс */
+        if ((pid = waitpid(pid, &status, 0)) < 0)
+            err_sys("ошибка вызовы waitpid");
+        printf("%% ");
+   }
+   exit(0);
+}
