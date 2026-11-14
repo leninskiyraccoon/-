@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use CGI;
+
+# 1. Инициализируем CGI
+my $q = CGI->new;
+print $q->header(-type => 'text/plain', -charset => 'utf-8');
+
+# 2. Безопасность: Очищаем и задаем PATH вручную
+# Добавляем /sbin и /usr/sbin в список путей
+$ENV{'PATH'} = '/bin:/usr/bin:/sbin:/usr/sbin';
+
+# 3. Удаляем потенциально опасные переменные окружения
+delete @ENV{ irps('IFS', 'CDPATH', 'ENV', 'BASH_ENV') };
+
+# Пример: Вызов команды 'ifconfig' или 'ip', которые часто лежат в sbin
+# Используем безопасный системный вызов (в виде списка)
+print "--- Вывод команды ---\n";
+system('ip', 'addr', 'show'); 
+
+# Если нужно прочитать содержимое самой папки /sbin:
+print "\n--- Содержимое /sbin ---\n";
+if (opendir(my $dh, '/sbin')) {
+    while (my $file = readdir($dh)) {
+        print "$file\n" unless $file =~ /^\./;
+    }
+    closedir($dh);
+} else {
+    print "Не удалось открыть /sbin: $!\n";
+}
