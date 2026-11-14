@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use IO::Socket::INET;
+
+# Буферизация вывода отключается для удобства логирования
+$| = 1;
+
+my $port = 8080;
+
+my $server = IO::Socket::INET->new(
+    LocalPort => $port,
+    Type      => SOCK_STREAM,
+    Proto     => 'tcp',
+    Listen    => 20,    # Размер очереди ожидающих подключений
+    Reuse     => 1      # Переиспользование адреса (SO_REUSEADDR)
+) or die "Не удалось создать сокет: $!\n";
+
+print "Сервер запущен на порту $port...\n";
+
+while (my $client = $server->accept()) {
+    my $client_ip = $client->peerhost();
+    print "Подключился клиент: $client_ip\n";
+
+    # Читаем данные от клиента
+    while (my $line = <$client>) {
+        print "Получено: $line";
+        last if $line =~ /^\r?\n$/; # выход при пустой строке
+    }
+
+    # Отправляем ответ клиенту
+    print $client "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nHello from Perl!\n";
+
+    close($client);
+}
+
+close($server);
