@@ -1,4 +1,4 @@
-#iclude "slock.h"
+#include "slock.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
