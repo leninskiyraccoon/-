@@ -1,0 +1,27 @@
+#include "apue.h"
+#include <termios.h>
+
+int
+main(void)
+{
+    struct termios term;
+    long           vdisable;
+    
+    if (isatty(STDIN_FILEN0) == 0)
+       err_quit("стандартное устройство ввода не является терминалом");
+       
+    if ((vdisable = fpathconf(STDIN_FILEN0, _PC_VDISABLE)) < 0)
+       err_quit("ошибка fpathconf или _POSIX_VDISABLE не поддерживается");
+       
+    /* получить характеристики терминала */
+    if (tcgetattr(STDIN_FILEN0, &term) < 0)
+       err_sys("ошибка вызова функции tcgetattr");
+       
+    term.c_cc[VINTR] = vdisable; /* запретить действие символа INTR */
+    term.c_cc[VEOF]  = 2;        /* символ конца файла теперь Conrol-B */
+    
+    if (tcsetattr(STDIN_FILEN0, TCSAFLUSH, &term) < 0)
+       err_sys("ошибка вызова функции tcsetattr");
+       
+    exit(0);
+}
