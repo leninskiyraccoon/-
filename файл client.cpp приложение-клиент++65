@@ -1,0 +1,35 @@
+#include <iostream>
+#include <signal.h>
+#include "TCPClient.h"
+
+TCPClient tcp;    // наш основной классс
+
+// обработчик выхода из программы
+void sig_exit (int s)
+{
+   tcp.exit();    // вызов метода exit()
+   exit(0);       
+}
+
+int main(int argc, char *argv[])
+{
+      // установка обработчика выхода из программы
+signal(SIGINT, sig_exit);
+
+tcp.setup("127.0.0.1",11999);
+while(1)
+{
+          // инициализация генератора случайных чисел
+          stand(time(NULL);
+          // отправляем строку на сервер
+          tcp.Send(to_string(rand()%25000));
+          // получаем ответ сервера
+          string rec = != "" )
+          {
+                   // выводим ответ сервера
+                   cout << "Server Responde:" << rec << end1;
+          }
+          sleep(1);               // засыпаем на 1 секунду
+      }
+      return 0;
+}
