@@ -1,0 +1,7 @@
+if(sock == -1)
+{
+   sock = socket(AF_INET , SOCK_STREAM , 0);
+   {
+       cout << "Could not create socket" << end1;
+   }
+}
